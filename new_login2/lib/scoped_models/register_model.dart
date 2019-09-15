@@ -79,7 +79,6 @@ class RegisterModel extends Model {
         return "Invalid Email";
       } else {
         _setValidation(true);
-
         return null;
       }
     }
@@ -112,13 +111,22 @@ class RegisterModel extends Model {
 
   String validatePassword(String value) {
     _password = value;
-    if (value.length < 8) {
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#%$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length > 30) {
       _setValidation(false);
-      return "Enter a password more than 8 characters";
+      return "Enter password in 30 characters";
     } else {
-      _setValidation(true);
-
-      return null;
+      if (value.length == 0) {
+        _setValidation(false);
+        return "Password is Required";
+      } else if (!regExp.hasMatch(value)) {
+        _setValidation(false);
+        return "Password should contain 1 capital letter, 1 digit and symbol";
+      } else {
+        _setValidation(true);
+        return null;
+      }
     }
   }
 
