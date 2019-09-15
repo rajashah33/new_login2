@@ -36,26 +36,20 @@ class RegisterModel extends Model {
   }
 
   String validateName(String value) {
-    print("____________");
-
     String pattern = r'(^[a-zA-Z ]*$)';
     RegExp regExp = new RegExp(pattern);
     if (value.length > 30) {
-      // inputValid = false;
       _setValidation(false);
       return "Name must be less than 30 characters";
     } else {
       if (value.length == 0) {
-        // inputValid = false;
         _setValidation(false);
         return "Name is Required";
       } else if (!regExp.hasMatch(value)) {
-        // inputValid = false;
         _setValidation(false);
         return "Name must be a-z and A-Z";
       }
     }
-    // inputValid = true;
     _setValidation(true);
     return null;
   }

@@ -235,7 +235,7 @@ class _RegisterState extends State<Register> {
         child: UIHelper.designButton(
           title: 'Create',
           onPressed: () {
-            nameValMsg = model.validateName(confPasswordController.text);
+            nameValMsg = model.validateName(nameController.text);
             emailValMsg = model.validateEmail(emailController.text);
             phoneValMsg = model.validateMobile(phoneController.text);
             passwordValMsg = model.validatePassword(passwordController.text);
