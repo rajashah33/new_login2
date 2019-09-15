@@ -5,17 +5,11 @@ import 'package:new_login/service_locator.dart';
 
 class HomeModel extends Model {
   StorageService storageService = locator<StorageService>();
-  String title = 'HomeModel';
 
   ViewState _state;
   ViewState get state => _state;
 
-  Future saveData() async {
-    _setState(ViewState.Busy);
-    title = "Saving Data";
-    title = "Data Saved";
-    _setState(ViewState.Retrieved);
-  }
+  // can be used as scema model
 
   void _setState(ViewState newState) {
     _state = newState;

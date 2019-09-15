@@ -6,7 +6,6 @@ import 'package:new_login/service_locator.dart';
 
 class RegisterModel extends Model {
   StorageService storageService = locator<StorageService>();
-
   var gender;
   var dob;
   bool inputValid = false;
@@ -17,7 +16,6 @@ class RegisterModel extends Model {
   // method to save data to databse
   void saveData(name, email, phone, password, confirmPassword,
       {Key key, @required bool isSeller}) async {
-    _password = password;
     var result;
     if (inputValid) {
       _setState(ViewState.Busy);
@@ -29,70 +27,37 @@ class RegisterModel extends Model {
         _setState(ViewState.Error);
       }
     } else {
-      _setState(ViewState.PasswordNotMatched);
+      if (_password != confirmPassword) {
+        _setState(ViewState.PasswordNotMatched);
+      } else {
+        ViewState.Error;
+      }
     }
   }
 
   String validateName(String value) {
+    print("____________");
+
     String pattern = r'(^[a-zA-Z ]*$)';
     RegExp regExp = new RegExp(pattern);
     if (value.length > 30) {
-      inputValid = false;
+      // inputValid = false;
+      _setValidation(false);
       return "Name must be less than 30 characters";
     } else {
       if (value.length == 0) {
-        inputValid = false;
+        // inputValid = false;
+        _setValidation(false);
         return "Name is Required";
       } else if (!regExp.hasMatch(value)) {
-        inputValid = false;
+        // inputValid = false;
+        _setValidation(false);
         return "Name must be a-z and A-Z";
       }
     }
-    inputValid = true;
+    // inputValid = true;
+    _setValidation(true);
     return null;
-  }
-
-  String validateMobile(String value) {
-    String pattern = r'(^[0-9]*$)';
-    RegExp regExp = new RegExp(pattern);
-    if (value.length != 10) {
-      inputValid = false;
-      return "Enter a valid Mobile no.";
-    } else {
-      if (value.length == 0) {
-        inputValid = false;
-        return "Mobile is Required";
-      } else if (value.length != 10) {
-        inputValid = false;
-        return "Mobile number must 10 digits";
-      } else if (!regExp.hasMatch(value)) {
-        inputValid = false;
-        return "Mobile Number must be digits";
-      } else {
-        inputValid = true;
-        return null;
-      }
-    }
-  }
-
-  String validatePassword(String value) {
-    if (value.length < 8) {
-      inputValid = false;
-      return "Enter a password more than 8 characters";
-    } else {
-      inputValid = true;
-      return null;
-    }
-  }
-
-  String validateConfirmPassword(String value) {
-    if (value != _password) {
-      inputValid = false;
-      return "Password not matched";
-    } else {
-      inputValid = true;
-      return null;
-    }
   }
 
   String validateEmail(String value) {
@@ -100,16 +65,76 @@ class RegisterModel extends Model {
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(pattern);
     if (value.length > 30) {
+      _setValidation(false);
+
       return "Enter email in 30 characters";
     } else {
       if (value.length == 0) {
+        _setValidation(false);
+
         return "Email is Required";
       } else if (!regExp.hasMatch(value)) {
+        _setValidation(false);
+
         return "Invalid Email";
       } else {
+        _setValidation(true);
+
         return null;
       }
     }
+  }
+
+  String validateMobile(String value) {
+    String pattern = r'(^[0-9]*$)';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length != 10) {
+      _setValidation(false);
+
+      return "Enter a valid Mobile no.";
+    } else {
+      if (value.length == 0) {
+        _setValidation(false);
+        return "Mobile is Required";
+      } else if (value.length != 10) {
+        _setValidation(false);
+
+        return "Mobile number must 10 digits";
+      } else if (!regExp.hasMatch(value)) {
+        _setValidation(false);
+        return "Mobile Number must be digits";
+      } else {
+        _setValidation(true);
+        return null;
+      }
+    }
+  }
+
+  String validatePassword(String value) {
+    _password = value;
+    if (value.length < 8) {
+      _setValidation(false);
+      return "Enter a password more than 8 characters";
+    } else {
+      _setValidation(true);
+
+      return null;
+    }
+  }
+
+  String validateConfirmPassword(confPassword) {
+    if (confPassword != _password) {
+      _setValidation(false);
+      return "Password not matched";
+    } else {
+      _setValidation(true);
+      return null;
+    }
+  }
+
+  void _setValidation(bool newValidation) {
+    inputValid = newValidation;
+    notifyListeners();
   }
 
   void _setState(ViewState newState) {

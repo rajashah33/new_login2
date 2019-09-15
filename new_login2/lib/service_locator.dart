@@ -6,13 +6,12 @@ import 'package:new_login/services/storage_service.dart';
 
 GetIt locator = GetIt.instance;
 void setupLocator() {
-  // locator.allowReassignment = true;
   // Register services
   locator.registerLazySingleton<StorageService>(() => StorageService());
 
   // Register models
   locator.registerLazySingleton<HomeModel>(() => HomeModel());
   locator.registerLazySingleton<LoginModel>(() => LoginModel());
-  // locator.registerSingleton<RegisterModel>(new RegisterModel());
-  locator.registerSingleton<RegisterModel>(RegisterModel());
+  locator.registerSingleton<RegisterModel>(new RegisterModel());
+  // locator.registerFactory<RegisterModel>(() => RegisterModel());
 }

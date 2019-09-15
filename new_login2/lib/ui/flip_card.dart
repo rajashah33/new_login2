@@ -10,7 +10,6 @@ import 'package:new_login/ui/login_view.dart';
 import 'package:new_login/ui/register_view.dart';
 import 'package:new_login/ui/shared/app_colors.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
-import 'login.dart';
 
 class FlipPage extends StatefulWidget {
   final bool isSeller;

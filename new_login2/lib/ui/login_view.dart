@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:new_login/enums/view_states.dart';
 import 'package:new_login/scoped_models/login_model.dart';
 import 'package:new_login/ui/base_view.dart';
-import 'package:new_login/ui/register_view.dart';
 import 'package:new_login/ui/shared/app_colors.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
 
@@ -81,8 +80,10 @@ class _LoginState extends State<Login> {
             controller: emailController,
             currentFocus: emailFocus,
             validationMessage: emailValMsg,
-            onFieldSubmitted: (v) {
+            onChanged: (v) {
               emailValMsg = model.validateEmail(emailController.text);
+            },
+            onFieldSubmitted: (v) {
               emailFocus.unfocus();
               FocusScope.of(context).requestFocus(passwordFocus);
             },
@@ -95,8 +96,10 @@ class _LoginState extends State<Login> {
             isPassword: true,
             currentFocus: passwordFocus,
             validationMessage: passwordValMsg,
-            onFieldSubmitted: (v) {
+            onChanged: (v) {
               passwordValMsg = model.validatePassword(passwordController.text);
+            },
+            onFieldSubmitted: (v) {
               passwordFocus.unfocus();
             },
             inputType: TextInputType.text,
@@ -114,6 +117,8 @@ class _LoginState extends State<Login> {
         child: UIHelper.designButton(
           title: 'Sign In',
           onPressed: () {
+            emailValMsg = model.validateEmail(emailController.text);
+            passwordValMsg = model.validatePassword(passwordController.text);
             model.checkData(emailController.text, passwordController.text,
                 isSeller: widget.isSeller);
           },
@@ -185,4 +190,3 @@ class _LoginState extends State<Login> {
     }
   }
 }
-//

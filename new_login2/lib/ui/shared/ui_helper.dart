@@ -20,9 +20,9 @@ class UIHelper {
     FocusNode currentFocus,
     Function onFieldSubmitted,
     String placeholder,
+    Function onChanged,
     Icon icon,
     String validationMessage,
-    Function customValidation,
     TextInputType inputType = TextInputType.text,
     bool isPassword = false,
     double edgeSpace = 10.0,
@@ -42,13 +42,13 @@ class UIHelper {
               borderRadius: BorderRadius.circular(8.0), color: lightGrey),
 
           child: TextFormField(
+            onChanged: onChanged,
             textInputAction: TextInputAction.done,
             focusNode: currentFocus,
             onFieldSubmitted: onFieldSubmitted,
             controller: controller,
             obscureText: isPassword,
             keyboardType: inputType,
-            validator: customValidation,
             style: TextStyle(fontSize: 15.0),
             decoration: InputDecoration(
               prefixIcon: icon,

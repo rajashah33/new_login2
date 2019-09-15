@@ -6,20 +6,22 @@ import 'package:new_login/service_locator.dart';
 
 class LoginModel extends Model {
   StorageService storageService = locator<StorageService>();
-
   var inputValid = false;
-  final passFocus = new FocusNode();
-
   ViewState _state = ViewState.Idle;
   ViewState get state => _state;
 
   void checkData(email, password, {Key key, @required isSeller}) async {
     _setState(ViewState.Busy);
 
-    bool result = await storageService.retrieveData(email, password, isSeller);
+    if (inputValid) {
+      bool result =
+          await storageService.retrieveData(email, password, isSeller);
 
-    if (result == true) {
-      _setState(ViewState.Retrieved);
+      if (result == true) {
+        _setState(ViewState.Retrieved);
+      } else {
+        _setState(ViewState.Error);
+      }
     } else {
       _setState(ViewState.Error);
     }
@@ -30,13 +32,17 @@ class LoginModel extends Model {
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(pattern);
     if (value.length > 30) {
+      _setValidation(false);
       return "Enter email in 30 characters";
     } else {
+      _setValidation(false);
       if (value.length == 0) {
         return "Email is Required";
       } else if (!regExp.hasMatch(value)) {
+        _setValidation(false);
         return "Invalid Email";
       } else {
+        _setValidation(true);
         return null;
       }
     }
@@ -44,12 +50,17 @@ class LoginModel extends Model {
 
   String validatePassword(String value) {
     if (value.length < 8) {
-      inputValid = false;
+      _setValidation(false);
       return "Enter a password more than 8 characters";
     } else {
-      inputValid = true;
+      _setValidation(true);
       return null;
     }
+  }
+
+  void _setValidation(bool newValidation) {
+    inputValid = newValidation;
+    notifyListeners();
   }
 
   void _setState(ViewState newState) {

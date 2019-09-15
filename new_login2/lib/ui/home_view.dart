@@ -3,7 +3,6 @@ import 'package:new_login/scoped_models/home_model.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:new_login/service_locator.dart';
-import 'login_view.dart';
 import 'flip_card.dart';
 
 class HomeView extends StatelessWidget {
@@ -15,9 +14,18 @@ class HomeView extends StatelessWidget {
         builder: (context, child, model) => Scaffold(
           body: Center(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Container(
+                  child: Text(
+                    'Welcome User!',
+                    style: TextStyle(fontSize: 30.0),
+                  ),
+                ),
+                Container(
+                  child: Text('Please select any one option:'),
+                  padding: EdgeInsets.only(bottom: 30.0),
+                ),
                 UIHelper.designButton(
                   title: 'Customer',
                   onPressed: () {

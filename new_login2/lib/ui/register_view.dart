@@ -100,9 +100,11 @@ class _RegisterState extends State<Register> {
               controller: nameController,
               icon: Icon(Icons.person),
               currentFocus: nameFocus,
+              onChanged: (v) {
+                nameValMsg = model.validateName(nameController.text);
+              },
               validationMessage: nameValMsg,
               onFieldSubmitted: (v) {
-                nameValMsg = model.validateName(nameController.text);
                 nameFocus.unfocus();
                 FocusScope.of(context).requestFocus(emailFocus);
               },
@@ -111,11 +113,13 @@ class _RegisterState extends State<Register> {
               placeholder: 'Email',
               controller: emailController,
               icon: Icon(Icons.email),
-              validationMessage: emailValMsg,
               inputType: TextInputType.emailAddress,
               currentFocus: emailFocus,
-              onFieldSubmitted: (v) {
+              validationMessage: emailValMsg,
+              onChanged: (v) {
                 emailValMsg = model.validateEmail(emailController.text);
+              },
+              onFieldSubmitted: (v) {
                 emailFocus.unfocus();
                 FocusScope.of(context).requestFocus(phoneFocus);
               },
@@ -124,11 +128,13 @@ class _RegisterState extends State<Register> {
               placeholder: 'Phone',
               controller: phoneController,
               icon: Icon(Icons.phone),
-              validationMessage: phoneValMsg,
               inputType: TextInputType.phone,
               currentFocus: phoneFocus,
-              onFieldSubmitted: (v) {
+              validationMessage: phoneValMsg,
+              onChanged: (v) {
                 phoneValMsg = model.validateMobile(phoneController.text);
+              },
+              onFieldSubmitted: (v) {
                 phoneFocus.unfocus();
                 FocusScope.of(context).requestFocus(passwordFocus);
               },
@@ -138,11 +144,13 @@ class _RegisterState extends State<Register> {
               controller: passwordController,
               isPassword: true,
               icon: Icon(Icons.lock_outline),
-              validationMessage: passwordValMsg,
               currentFocus: passwordFocus,
-              onFieldSubmitted: (v) {
+              validationMessage: passwordValMsg,
+              onChanged: (v) {
                 passwordValMsg =
                     model.validatePassword(passwordController.text);
+              },
+              onFieldSubmitted: (v) {
                 passwordFocus.unfocus();
                 FocusScope.of(context).requestFocus(confPasswordFocus);
               },
@@ -152,11 +160,13 @@ class _RegisterState extends State<Register> {
               controller: confPasswordController,
               isPassword: true,
               icon: Icon(Icons.lock),
-              validationMessage: confPasswordValMsg,
               currentFocus: confPasswordFocus,
-              onFieldSubmitted: (v) {
+              validationMessage: confPasswordValMsg,
+              onChanged: (v) {
                 confPasswordValMsg =
-                    model.validatePassword(confPasswordController.text);
+                    model.validateConfirmPassword(confPasswordController.text);
+              },
+              onFieldSubmitted: (v) {
                 confPasswordFocus.unfocus();
               },
             ),
@@ -185,8 +195,6 @@ class _RegisterState extends State<Register> {
           onChanged: (String newValueSelected) {
             setState(() {
               this._currentItemSelected = newValueSelected;
-              // TODO: see the model. gender
-
               model.gender = newValueSelected; // set model gender variable
             });
           },
@@ -227,6 +235,12 @@ class _RegisterState extends State<Register> {
         child: UIHelper.designButton(
           title: 'Create',
           onPressed: () {
+            nameValMsg = model.validateName(confPasswordController.text);
+            emailValMsg = model.validateEmail(emailController.text);
+            phoneValMsg = model.validateMobile(phoneController.text);
+            passwordValMsg = model.validatePassword(passwordController.text);
+            confPasswordValMsg =
+                model.validateConfirmPassword(confPasswordController.text);
             model.saveData(
                 nameController.text,
                 emailController.text,

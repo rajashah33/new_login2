@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 import 'package:new_login/ui/shared/app_config.dart';
 
@@ -10,18 +8,17 @@ class StorageService {
   Future<bool> saveData(
       name, email, phone, password, gender, dob, isSeller) async {
     var url;
-
     HttpClient client = new HttpClient();
-    if (isSeller == false) {
-      url = baseURL;
-    } else {
-      url = baseURL;
-    }
-
     client.badCertificateCallback =
         ((X509Certificate cert, String host, int port) => true);
-
     IOClient ioClient = new IOClient(client);
+
+    if (isSeller == false) {
+      url = baseURL + 'api/restaddusers';
+    } else {
+      url = baseURL + 'api/restaddusers';
+    }
+
     try {
       final response = await ioClient.post(url, body: {
         "userName": name,
@@ -37,34 +34,38 @@ class StorageService {
         return false;
       }
     } catch (Exception) {
-      // Return something
+      return false;
     }
   }
 
+/////////////////////////////////
 // retrieveData function for login
   Future<bool> retrieveData(
       String email, String password, bool isSeller) async {
+    HttpClient client = new HttpClient();
+    client.badCertificateCallback =
+        ((X509Certificate cert, String host, int port) => true);
+
+    IOClient ioClient = new IOClient(client);
+
     String url;
-    var response;
     if (isSeller == false)
-      url = '${baseURL}test_customer.php';
+      url = baseURL + 'api/restuserlogin';
     else
-      url = '${baseURL}test_seller.php';
+      url = baseURL + 'api/restuserlogin';
+
     try {
-      response = await http.post(url, body: {
-        "userEmail": email,
+      final response = await ioClient.post(url, body: {
+        "userEmailId": email,
         "userPassword": password,
       });
-
-      Map<String, dynamic> map = json.decode(response.body);
-      if (map['status'] == '1') {
+      if (response.body == 'true') {
         return true;
       } else {
         return false;
       }
     } catch (Exception) {
       return false;
-      // return something
     }
   }
 }
