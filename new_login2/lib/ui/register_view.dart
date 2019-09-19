@@ -42,7 +42,6 @@ class _RegisterState extends State<Register> {
   String dobText = 'Date of Birth';
   var _gender = ['Male', 'Female', 'Other'];
   var _currentItemSelected;
-
   @override
   Widget build(BuildContext context) {
     return BaseView<RegisterModel>(
