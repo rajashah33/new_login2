@@ -285,7 +285,7 @@ class _RegisterState extends State<Register> {
         return Center(child: Text('Error'));
         break;
 
-      case ViewState.Retrieved:
+      case ViewState.Success:
         return Center(child: Text('Success'));
         break;
 

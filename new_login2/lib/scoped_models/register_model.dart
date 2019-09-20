@@ -22,7 +22,7 @@ class RegisterModel extends Model {
       result = await storageService.saveData(
           name, email, phone, password, gender, dob, isSeller);
       if (result == true) {
-        _setState(ViewState.Retrieved);
+        _setState(ViewState.Success);
       } else {
         _setState(ViewState.Error);
       }
