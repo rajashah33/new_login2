@@ -3,7 +3,7 @@ import 'package:new_login/scoped_models/home_model.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:new_login/service_locator.dart';
-import 'flip_card.dart';
+import 'package:new_login/ui/login_register/flip_card_view.dart';
 
 class HomeView extends StatelessWidget {
   @override

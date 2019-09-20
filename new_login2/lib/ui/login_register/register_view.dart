@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:new_login/enums/view_states.dart';
 import 'package:new_login/scoped_models/register_model.dart';
-import 'package:new_login/service_locator.dart';
 import 'package:new_login/ui/base_view.dart';
-import 'package:new_login/ui/login_view.dart';
 import 'package:new_login/ui/shared/app_colors.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
-import 'package:new_login/validator.dart';
 
 class Register extends StatefulWidget {
   final bool isSeller;
