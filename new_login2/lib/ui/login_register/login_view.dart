@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:new_login/enums/view_states.dart';
 import 'package:new_login/scoped_models/login_model.dart';
 import 'package:new_login/ui/base_view.dart';
+import 'package:new_login/ui/product/new-product.dart';
 import 'package:new_login/ui/shared/app_colors.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
 
@@ -181,7 +182,15 @@ class _LoginState extends State<Login> {
         return Center(child: Text('Error'));
         break;
 
-      case ViewState.Retrieved:
+      case ViewState.Success:
+        if (widget.isSeller == true) {
+          // if true go to Seller Page
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NewProductView(),
+              ));
+        }
         return Center(child: Text('Success'));
         break;
       default:

@@ -18,7 +18,7 @@ class LoginModel extends Model {
           await storageService.retrieveData(email, password, isSeller);
 
       if (result == true) {
-        _setState(ViewState.Retrieved);
+        _setState(ViewState.Success);
       } else {
         _setState(ViewState.Error);
       }
