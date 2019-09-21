@@ -5,7 +5,21 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:new_login/service_locator.dart';
 import 'package:new_login/ui/login_register/flip_card_view.dart';
 
-class NewProductView extends StatelessWidget {
+class NewProductView extends StatefulWidget {
+  @override
+  _NewProductViewState createState() => _NewProductViewState();
+}
+
+class _NewProductViewState extends State<NewProductView> {
+  var categoryList = [
+    'Fashion',
+    'Edibles',
+    'Educational',
+    'Stationaries',
+    'Workout'
+  ];
+  var selectedCategory;
+
   @override
   Widget build(BuildContext context) {
     return ScopedModel<NewProductModel>(
@@ -22,6 +36,16 @@ class NewProductView extends StatelessWidget {
                     style: TextStyle(fontSize: 30.0),
                   ),
                 ),
+                UIHelper.designDropDown(
+                  title: 'Choose a Category',
+                  itemList: categoryList,
+                  selectedValue: selectedCategory,
+                  onChanged: (String newSelectedValue) {
+                    setState(() {
+                      selectedCategory = newSelectedValue;
+                    });
+                  },
+                ),
                 Container(
                     padding: EdgeInsets.only(bottom: 30.0),
                     child: Column(
@@ -30,12 +54,13 @@ class NewProductView extends StatelessWidget {
                           title: 'Create Product',
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => FlipPage(
-                                    isSeller: false,
-                                  ),
-                                ));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FlipPage(
+                                  isSeller: false,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ],

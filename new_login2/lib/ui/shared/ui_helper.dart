@@ -96,8 +96,8 @@ class UIHelper {
   static Widget designDropDown({
     @required String title,
     @required List<String> itemList,
-    String selectedValue,
-    Function onChanged,
+    @required String selectedValue,
+    @required Function onChanged,
   }) {
     return DropdownButton<String>(
       hint: Text(

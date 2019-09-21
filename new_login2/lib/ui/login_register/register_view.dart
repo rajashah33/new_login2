@@ -37,8 +37,7 @@ class _RegisterState extends State<Register> {
 
   DateTime date;
   String dobText = 'Date of Birth';
-  var _gender = ['Male', 'Female', 'Other'];
-  var _selectedDate;
+  var genderList = ['Male', 'Female', 'Other'];
   var selectedGender;
   @override
   Widget build(BuildContext context) {
@@ -177,46 +176,37 @@ class _RegisterState extends State<Register> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        buildDropdownButton(model),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              child: Text(
-                dobText,
-              ),
-              color: Colors.grey.shade200,
-              onPressed: () {
-                showDatePicker(
-                  context: context,
-                  initialDate: date == null ? DateTime.now() : date,
-                  firstDate: DateTime(1960),
-                  lastDate: DateTime(2020),
-                ).then((_date) {
-                  setState(() {
-                    date = _date;
-                    dobText = DateFormat('dd MMM yyyy').format(date);
-                    model.dob = date.toString().substring(0, 10);
-                  });
-                });
-              },
-            ),
-          ],
+        UIHelper.designDropDown(
+          title: 'Gender',
+          itemList: genderList,
+          onChanged: (String newSelectedValue) {
+            setState(() {
+              selectedGender = newSelectedValue;
+              // model.gender = newSelectedValue; // set model gender variable
+            });
+          },
+          selectedValue: selectedGender,
+        ),
+        RaisedButton(
+          child: Text(dobText),
+          color: Colors.grey.shade200,
+          onPressed: () {
+            showDatePicker(
+              context: context,
+              initialDate: date == null ? DateTime.now() : date,
+              firstDate: DateTime(1960),
+              lastDate: DateTime(2020),
+            ).then((_date) {
+              setState(() {
+                date = _date;
+                dobText = DateFormat('dd MMM yyyy').format(_date);
+                // model.dob = date.toString().substring(0, 10);
+              });
+            });
+          },
         ),
       ],
     );
-  }
-
-  DropdownButton<String> buildDropdownButton(RegisterModel model) {
-    return UIHelper.designDropDown(
-        title: 'Gender',
-        itemList: _gender,
-        onChanged: (String newSelectedValue) {
-          setState(() {
-            selectedGender = newSelectedValue;
-            // model.gender = newSelectedValue; // set model gender variable
-          });
-        });
   }
 
   Widget _buildRegisterButton(RegisterModel model) {
@@ -238,6 +228,7 @@ class _RegisterState extends State<Register> {
                 passwordController.text,
                 confPasswordController.text,
                 selectedGender,
+                date.toString().substring(0, 10),
                 isSeller: widget.isSeller);
           },
         ),

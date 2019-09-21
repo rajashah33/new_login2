@@ -6,14 +6,14 @@ import 'package:new_login/service_locator.dart';
 
 class RegisterModel extends Model {
   StorageService storageService = locator<StorageService>();
-  var dob;
+
   bool inputValid = false;
   String _password;
   ViewState _state;
   ViewState get state => _state;
 
   // method to save data to databse
-  void saveData(name, email, phone, password, confirmPassword, gender,
+  void saveData(name, email, phone, password, confirmPassword, gender, dob,
       {Key key, @required bool isSeller}) async {
     var result;
     if (inputValid) {
