@@ -23,33 +23,23 @@ class NewProductView extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: Text('Please select any one option:'),
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-                UIHelper.designButton(
-                  title: 'Customer',
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FlipPage(
-                            isSeller: false,
-                          ),
-                        ));
-                  },
-                ),
-                UIHelper.designButton(
-                  title: 'Seller',
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FlipPage(
-                            isSeller: true,
-                          ),
-                        ));
-                  },
-                )
+                    padding: EdgeInsets.only(bottom: 30.0),
+                    child: Column(
+                      children: <Widget>[
+                        UIHelper.designButton(
+                          title: 'Create Product',
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FlipPage(
+                                    isSeller: false,
+                                  ),
+                                ));
+                          },
+                        ),
+                      ],
+                    )),
               ],
             ),
           ),

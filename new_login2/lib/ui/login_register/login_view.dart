@@ -168,6 +168,17 @@ class _LoginState extends State<Login> {
             ],
           ),
         ),
+        // TODO: for test purpose .... Remove it >>
+        UIHelper.designButton(
+            title: 'Create Page',
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewProductView(),
+                  ));
+            })
+        // <<<
       ],
     );
   }

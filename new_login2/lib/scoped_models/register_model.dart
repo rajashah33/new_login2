@@ -6,7 +6,6 @@ import 'package:new_login/service_locator.dart';
 
 class RegisterModel extends Model {
   StorageService storageService = locator<StorageService>();
-  var gender;
   var dob;
   bool inputValid = false;
   String _password;
@@ -14,7 +13,7 @@ class RegisterModel extends Model {
   ViewState get state => _state;
 
   // method to save data to databse
-  void saveData(name, email, phone, password, confirmPassword,
+  void saveData(name, email, phone, password, confirmPassword, gender,
       {Key key, @required bool isSeller}) async {
     var result;
     if (inputValid) {
@@ -30,7 +29,7 @@ class RegisterModel extends Model {
       if (_password != confirmPassword) {
         _setState(ViewState.PasswordNotMatched);
       } else {
-        ViewState.Error;
+        _setState(ViewState.Error);
       }
     }
   }

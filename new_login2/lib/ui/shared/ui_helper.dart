@@ -93,18 +93,26 @@ class UIHelper {
     );
   }
 
-  static Widget fullScreenButton({String title, Function onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: 40.0,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            color: Color.fromARGB(255, 9, 202, 172)),
-        child: Center(
-            child: Text(title, style: TextStyle(fontWeight: FontWeight.w800))),
+  static Widget designDropDown({
+    @required String title,
+    @required List<String> itemList,
+    String selectedValue,
+    Function onChanged,
+  }) {
+    return DropdownButton<String>(
+      hint: Text(
+        title,
       ),
+      items: itemList.map((String dropDownStringItem) {
+        return DropdownMenuItem<String>(
+          value: dropDownStringItem,
+          child: Text(
+            dropDownStringItem,
+          ),
+        );
+      }).toList(),
+      onChanged: onChanged,
+      value: selectedValue,
     );
   }
 }

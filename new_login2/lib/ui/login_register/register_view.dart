@@ -38,7 +38,8 @@ class _RegisterState extends State<Register> {
   DateTime date;
   String dobText = 'Date of Birth';
   var _gender = ['Male', 'Female', 'Other'];
-  var _currentItemSelected;
+  var _selectedDate;
+  var selectedGender;
   @override
   Widget build(BuildContext context) {
     return BaseView<RegisterModel>(
@@ -176,26 +177,7 @@ class _RegisterState extends State<Register> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        DropdownButton<String>(
-          hint: Text(
-            'Gender',
-          ),
-          items: _gender.map((String dropDownStringItem) {
-            return DropdownMenuItem<String>(
-              value: dropDownStringItem,
-              child: Text(
-                dropDownStringItem,
-              ),
-            );
-          }).toList(),
-          onChanged: (String newValueSelected) {
-            setState(() {
-              this._currentItemSelected = newValueSelected;
-              model.gender = newValueSelected; // set model gender variable
-            });
-          },
-          value: _currentItemSelected,
-        ),
+        buildDropdownButton(model),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -225,6 +207,18 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  DropdownButton<String> buildDropdownButton(RegisterModel model) {
+    return UIHelper.designDropDown(
+        title: 'Gender',
+        itemList: _gender,
+        onChanged: (String newSelectedValue) {
+          setState(() {
+            selectedGender = newSelectedValue;
+            // model.gender = newSelectedValue; // set model gender variable
+          });
+        });
+  }
+
   Widget _buildRegisterButton(RegisterModel model) {
     return new Container(
       child: Center(
@@ -243,6 +237,7 @@ class _RegisterState extends State<Register> {
                 phoneController.text,
                 passwordController.text,
                 confPasswordController.text,
+                selectedGender,
                 isSeller: widget.isSeller);
           },
         ),
