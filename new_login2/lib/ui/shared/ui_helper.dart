@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:new_login/ui/shared/app_colors.dart' as prefix0;
 import 'app_colors.dart';
 
 /// Contains useful functions to reduce boilerplate code
@@ -25,8 +27,9 @@ class UIHelper {
     String validationMessage,
     TextInputType inputType = TextInputType.text,
     bool isPassword = false,
+    bool isDisabled = false,
     double edgeSpace = 10.0,
-    double padding = 0.0,
+    double padding = 5.0,
   }) {
     return Container(
       margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
@@ -48,6 +51,7 @@ class UIHelper {
             onFieldSubmitted: onFieldSubmitted,
             controller: controller,
             obscureText: isPassword,
+            readOnly: isDisabled,
             keyboardType: inputType,
             style: TextStyle(fontSize: 15.0),
             decoration: InputDecoration(
@@ -93,7 +97,7 @@ class UIHelper {
     );
   }
 
-  static Widget designDropDown({
+  static Widget customDropDown({
     @required String title,
     @required List<String> itemList,
     @required String selectedValue,
@@ -113,6 +117,36 @@ class UIHelper {
       }).toList(),
       onChanged: onChanged,
       value: selectedValue,
+    );
+  }
+
+  static Widget customFloatingActionButton({
+    List<SpeedDialChild> childFunctionList,
+  }) {
+    return SpeedDial(
+      // both default to 16
+      marginRight: 18,
+      marginBottom: 20,
+      animatedIcon: AnimatedIcons.menu_close,
+      animatedIconTheme: IconThemeData(size: 22.0),
+      // this is ignored if animatedIcon is non null
+      // child: Icon(Icons.add),
+      visible: true,
+      // If true user is forced to close dial manually
+      // by tapping main button and overlay is not rendered.
+      closeManually: false,
+      curve: Curves.bounceIn,
+      overlayColor: Colors.black,
+      overlayOpacity: 0.5,
+      onOpen: () => print('OPENING DIAL'),
+      onClose: () => print('DIAL CLOSED'),
+      tooltip: 'Speed Dial',
+      heroTag: 'speed-dial-hero-tag',
+      backgroundColor: darkGrey,
+      foregroundColor: primaryColor,
+      elevation: 8.0,
+      shape: CircleBorder(),
+      children: childFunctionList,
     );
   }
 }

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:new_login/scoped_models/new_product_model.dart';
+import 'package:new_login/ui/shared/font_styles.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:new_login/service_locator.dart';
 import 'package:new_login/ui/login_register/flip_card_view.dart';
 
-class NewProductView extends StatefulWidget {
+class NewProduct extends StatefulWidget {
   @override
-  _NewProductViewState createState() => _NewProductViewState();
+  _NewProductState createState() => _NewProductState();
 }
 
-class _NewProductViewState extends State<NewProductView> {
+class _NewProductState extends State<NewProduct> {
   var categoryList = [
     'Fashion',
     'Edibles',
@@ -20,6 +21,10 @@ class _NewProductViewState extends State<NewProductView> {
   ];
   var selectedCategory;
 
+  String prodNameValMsg = '', prodValMsg = '';
+  final prodNameController = TextEditingController();
+
+  final prodNameFocus = new FocusNode();
   @override
   Widget build(BuildContext context) {
     return ScopedModel<NewProductModel>(
@@ -27,23 +32,71 @@ class _NewProductViewState extends State<NewProductView> {
       child: ScopedModelDescendant<NewProductModel>(
         builder: (context, child, model) => Scaffold(
           body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: ListView(
               children: <Widget>[
                 Container(
+                  padding: EdgeInsets.all(10.0),
                   child: Text(
                     'Add new Product',
-                    style: TextStyle(fontSize: 30.0),
+                    style: styleHeading,
                   ),
                 ),
-                UIHelper.designDropDown(
-                  title: 'Choose a Category',
-                  itemList: categoryList,
-                  selectedValue: selectedCategory,
-                  onChanged: (String newSelectedValue) {
-                    setState(() {
-                      selectedCategory = newSelectedValue;
-                    });
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text('Choose a Category:'),
+                    UIHelper.customDropDown(
+                      title: 'Product Category',
+                      itemList: categoryList,
+                      selectedValue: selectedCategory,
+                      onChanged: (String newSelectedValue) {
+                        setState(() {
+                          selectedCategory = newSelectedValue;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                UIHelper.inputField(
+                  placeholder: 'Product Name',
+                  controller: prodNameController,
+                  currentFocus: prodNameFocus,
+                  validationMessage: prodNameValMsg,
+                  inputType: TextInputType.text,
+                  onChanged: (v) {
+                    // prodValMsg = model.validateEmail(emailController.text);
+                  },
+                  onFieldSubmitted: (v) {
+                    prodNameFocus.unfocus();
+                    // FocusScope.of(context).requestFocus(passwordFocus);
+                  },
+                ),
+                UIHelper.inputField(
+                  placeholder: '',
+                  controller: prodNameController,
+                  currentFocus: prodNameFocus,
+                  validationMessage: prodNameValMsg,
+                  inputType: TextInputType.text,
+                  onChanged: (v) {
+                    // prodValMsg = model.validateEmail(emailController.text);
+                  },
+                  onFieldSubmitted: (v) {
+                    prodNameFocus.unfocus();
+                    // FocusScope.of(context).requestFocus(passwordFocus);
+                  },
+                ),
+                UIHelper.inputField(
+                  placeholder: 'Product Name',
+                  controller: prodNameController,
+                  currentFocus: prodNameFocus,
+                  validationMessage: prodNameValMsg,
+                  inputType: TextInputType.text,
+                  onChanged: (v) {
+                    // prodValMsg = model.validateEmail(emailController.text);
+                  },
+                  onFieldSubmitted: (v) {
+                    prodNameFocus.unfocus();
+                    // FocusScope.of(context).requestFocus(passwordFocus);
                   },
                 ),
                 Container(

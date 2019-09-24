@@ -176,7 +176,7 @@ class _RegisterState extends State<Register> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        UIHelper.designDropDown(
+        UIHelper.customDropDown(
           title: 'Gender',
           itemList: genderList,
           onChanged: (String newSelectedValue) {

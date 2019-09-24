@@ -1,11 +1,13 @@
 import 'package:flip_card/flip_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:new_login/enums/view_states.dart';
 import 'package:new_login/scoped_models/login_model.dart';
 import 'package:new_login/ui/base_view.dart';
-import 'package:new_login/ui/product/new-product.dart';
 import 'package:new_login/ui/shared/app_colors.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
+
+import '../seller_home_view.dart';
 
 class Login extends StatefulWidget {
   final bool isSeller;
@@ -170,12 +172,12 @@ class _LoginState extends State<Login> {
         ),
         // TODO: for test purpose .... Remove it >>
         UIHelper.designButton(
-            title: 'Create Page',
+            title: 'GoToSellerPage',
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => NewProductView(),
+                  CupertinoPageRoute(
+                    builder: (context) => SellerHome(),
                   ));
             })
         // <<<
@@ -198,8 +200,8 @@ class _LoginState extends State<Login> {
           // if true go to Seller Page
           Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => NewProductView(),
+              CupertinoPageRoute(
+                builder: (context) => SellerHome(),
               ));
         }
         return Center(child: Text('Success'));
