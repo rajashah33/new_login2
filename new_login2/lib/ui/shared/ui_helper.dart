@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:new_login/ui/shared/app_colors.dart' as prefix0;
+import 'package:new_login/ui/shared/font_styles.dart';
 import 'app_colors.dart';
 
 /// Contains useful functions to reduce boilerplate code
@@ -19,6 +20,7 @@ class UIHelper {
 
   static Widget inputField({
     @required TextEditingController controller,
+    String label = '',
     FocusNode currentFocus,
     Function onFieldSubmitted,
     String placeholder,
@@ -29,15 +31,18 @@ class UIHelper {
     bool isPassword = false,
     bool isDisabled = false,
     double edgeSpace = 10.0,
-    double padding = 5.0,
+    double hintLeftPadding = 0.0,
   }) {
     return Container(
-      margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+      margin: EdgeInsets.only(left: 10.0, right: 10.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
           Widget>[
+        label != ''
+            ? Container(margin: EdgeInsets.only(left: 5.0), child: Text(label))
+            : Container(margin: EdgeInsets.all(5.0)),
         Container(
           alignment: Alignment(0.0, 0.0),
-          padding: EdgeInsets.only(left: padding),
+          padding: EdgeInsets.only(left: hintLeftPadding),
           // margin: EdgeInsets.only(top: spaceBetweenTitle),
           width: double.infinity,
           height: 40.0,
@@ -53,11 +58,18 @@ class UIHelper {
             obscureText: isPassword,
             readOnly: isDisabled,
             keyboardType: inputType,
-            style: TextStyle(fontSize: 15.0),
+            style: TextStyle(
+                fontSize: 15.0,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.w600),
             decoration: InputDecoration(
               prefixIcon: icon,
               hintText: placeholder,
-              hintStyle: TextStyle(color: grey, fontSize: 12.0),
+              hintStyle: TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 15.0,
+                fontWeight: FontWeight.w100,
+              ),
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Color.fromARGB(0, 0, 0, 0))),
               focusedBorder: UnderlineInputBorder(
@@ -71,7 +83,7 @@ class UIHelper {
             ? Text(validationMessage,
                 style: TextStyle(color: Colors.red[400], fontSize: 12.0))
             : Container(
-                margin: EdgeInsets.all(5.0),
+                margin: EdgeInsets.all(4.0),
               ),
       ]),
     );
@@ -90,7 +102,8 @@ class UIHelper {
           height: 42.0,
           child: Text(
             title,
-            style: TextStyle(fontSize: 20.0, color: primaryColor),
+            style: TextStyle(
+                fontFamily: 'Montserrat', fontSize: 20.0, color: primaryColor),
           ),
         ),
       ),

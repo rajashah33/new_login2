@@ -6,7 +6,13 @@ const TextStyle viewTitle =
 const TextStyle viewErrorTitle =
     TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800, color: grey);
 
-const TextStyle styleHeading =TextStyle(
+const styleHeading = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 24.0,
+  fontWeight: FontWeight.w800,
+);
+const styleNormalText = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 20.0,
+  fontWeight: FontWeight.w600,
 );

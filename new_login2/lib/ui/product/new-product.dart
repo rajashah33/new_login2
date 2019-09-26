@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:new_login/scoped_models/new_product_model.dart';
 import 'package:new_login/ui/shared/font_styles.dart';
 import 'package:new_login/ui/shared/ui_helper.dart';
@@ -42,82 +45,80 @@ class _NewProductState extends State<NewProduct> {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Text('Choose a Category:'),
-                    UIHelper.customDropDown(
-                      title: 'Product Category',
-                      itemList: categoryList,
-                      selectedValue: selectedCategory,
-                      onChanged: (String newSelectedValue) {
-                        setState(() {
-                          selectedCategory = newSelectedValue;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Text('Choose a Category:'),
+                      UIHelper.customDropDown(
+                          title: 'Product Category',
+                          itemList: categoryList,
+                          selectedValue: selectedCategory,
+                          onChanged: (String newSelectedValue) {
+                            setState(() {
+                              selectedCategory = newSelectedValue;
+                            });
+                          })
+                    ]),
+                UIHelper.horizontalSpace(20.0),
                 UIHelper.inputField(
-                  placeholder: 'Product Name',
-                  controller: prodNameController,
-                  currentFocus: prodNameFocus,
-                  validationMessage: prodNameValMsg,
-                  inputType: TextInputType.text,
-                  onChanged: (v) {
-                    // prodValMsg = model.validateEmail(emailController.text);
-                  },
-                  onFieldSubmitted: (v) {
-                    prodNameFocus.unfocus();
-                    // FocusScope.of(context).requestFocus(passwordFocus);
-                  },
-                ),
+                    label: 'Product Name',
+                    placeholder: 'Enter Product Name',
+                    controller: prodNameController,
+                    currentFocus: prodNameFocus,
+                    validationMessage: prodNameValMsg,
+                    inputType: TextInputType.text,
+                    hintLeftPadding: 15.0,
+                    onChanged: (v) {
+                      // prodValMsg = model.validateEmail(emailController.text);
+                    },
+                    onFieldSubmitted: (v) {
+                      prodNameFocus.unfocus();
+                      // FocusScope.of(context).requestFocus(passwordFocus);
+                    }),
                 UIHelper.inputField(
-                  placeholder: '',
-                  controller: prodNameController,
-                  currentFocus: prodNameFocus,
-                  validationMessage: prodNameValMsg,
-                  inputType: TextInputType.text,
-                  onChanged: (v) {
-                    // prodValMsg = model.validateEmail(emailController.text);
-                  },
-                  onFieldSubmitted: (v) {
-                    prodNameFocus.unfocus();
-                    // FocusScope.of(context).requestFocus(passwordFocus);
-                  },
-                ),
+                    label: 'Brand',
+                    placeholder: 'Enter Brand Name',
+                    controller: prodNameController,
+                    currentFocus: prodNameFocus,
+                    validationMessage: prodNameValMsg,
+                    inputType: TextInputType.text,
+                    hintLeftPadding: 15.0,
+                    onChanged: (v) {
+                      // prodValMsg = model.validateEmail(emailController.text);
+                    },
+                    onFieldSubmitted: (v) {
+                      prodNameFocus.unfocus();
+                      // FocusScope.of(context).requestFocus(passwordFocus);
+                    }),
                 UIHelper.inputField(
-                  placeholder: 'Product Name',
-                  controller: prodNameController,
-                  currentFocus: prodNameFocus,
-                  validationMessage: prodNameValMsg,
-                  inputType: TextInputType.text,
-                  onChanged: (v) {
-                    // prodValMsg = model.validateEmail(emailController.text);
-                  },
-                  onFieldSubmitted: (v) {
-                    prodNameFocus.unfocus();
-                    // FocusScope.of(context).requestFocus(passwordFocus);
-                  },
-                ),
+                    label: 'Price',
+                    placeholder: 'Enter Price',
+                    controller: prodNameController,
+                    currentFocus: prodNameFocus,
+                    validationMessage: prodNameValMsg,
+                    inputType: TextInputType.number,
+                    hintLeftPadding: 15.0,
+                    onChanged: (v) {
+                      // prodValMsg = model.validateEmail(emailController.text);
+                    },
+                    onFieldSubmitted: (v) {
+                      prodNameFocus.unfocus();
+                      // FocusScope.of(context).requestFocus(passwordFocus);
+                    }),
                 Container(
                     padding: EdgeInsets.only(bottom: 30.0),
-                    child: Column(
-                      children: <Widget>[
-                        UIHelper.designButton(
-                          title: 'Create Product',
+                    child: Column(children: <Widget>[
+                      UIHelper.designButton(
+                          title: 'Next ',
                           onPressed: () {
                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FlipPage(
-                                  isSeller: false,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    )),
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FlipPage(
+                                    isSeller: false,
+                                  ),
+                                ));
+                          })
+                    ])),
               ],
             ),
           ),

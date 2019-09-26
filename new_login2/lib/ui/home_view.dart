@@ -27,29 +27,17 @@ class HomeView extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 30.0),
                 ),
                 UIHelper.designButton(
-                  title: 'Customer',
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FlipPage(
-                            isSeller: false,
-                          ),
-                        ));
-                  },
-                ),
+                    title: 'Customer',
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed('/flipPage', arguments: false);
+                    }),
                 UIHelper.designButton(
-                  title: 'Seller',
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FlipPage(
-                            isSeller: true,
-                          ),
-                        ));
-                  },
-                )
+                    title: 'Seller',
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed('/flipPage', arguments: true);
+                    })
               ],
             ),
           ),
