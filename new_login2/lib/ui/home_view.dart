@@ -31,8 +31,10 @@ class HomeView extends StatelessWidget {
                 UIHelper.designButton(
                     title: 'Seller',
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed('/flipPage', arguments: true);
+                      Navigator.pushNamed(context, '/flipPage',
+                          arguments: true);
+                      // Navigator.of(context)
+                      //     .pushNamed('/flipPage', arguments: true);
                     })
               ],
             ),
