@@ -17,15 +17,11 @@ class HomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  child: Text(
-                    'Welcome User!',
-                    style: TextStyle(fontSize: 30.0),
-                  ),
-                ),
+                    child: Text('Welcome User!',
+                        style: TextStyle(fontSize: 30.0))),
                 Container(
-                  child: Text('Please select any one option:'),
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
+                    child: Text('Please select any one option:'),
+                    padding: EdgeInsets.only(bottom: 30.0)),
                 UIHelper.designButton(
                     title: 'Customer',
                     onPressed: () {
