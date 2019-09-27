@@ -1,7 +1,7 @@
 enum ViewState {
   Idle,
   Busy,
-  Retrieved,
+  Success,
   Error,
   PasswordNotMatched,
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_login/route_generator.dart';
 // import 'package:new_login/Model/loginModel.dart';
 import 'package:new_login/service_locator.dart';
 import 'package:new_login/ui/home_view.dart';
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeView(),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

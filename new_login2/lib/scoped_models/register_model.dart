@@ -6,15 +6,14 @@ import 'package:new_login/service_locator.dart';
 
 class RegisterModel extends Model {
   StorageService storageService = locator<StorageService>();
-  var gender;
-  var dob;
+
   bool inputValid = false;
   String _password;
   ViewState _state;
   ViewState get state => _state;
 
   // method to save data to databse
-  void saveData(name, email, phone, password, confirmPassword,
+  void saveData(name, email, phone, password, confirmPassword, gender, dob,
       {Key key, @required bool isSeller}) async {
     var result;
     if (inputValid) {
@@ -22,7 +21,7 @@ class RegisterModel extends Model {
       result = await storageService.saveData(
           name, email, phone, password, gender, dob, isSeller);
       if (result == true) {
-        _setState(ViewState.Retrieved);
+        _setState(ViewState.Success);
       } else {
         _setState(ViewState.Error);
       }
@@ -30,32 +29,26 @@ class RegisterModel extends Model {
       if (_password != confirmPassword) {
         _setState(ViewState.PasswordNotMatched);
       } else {
-        ViewState.Error;
+        _setState(ViewState.Error);
       }
     }
   }
 
   String validateName(String value) {
-    print("____________");
-
     String pattern = r'(^[a-zA-Z ]*$)';
     RegExp regExp = new RegExp(pattern);
     if (value.length > 30) {
-      // inputValid = false;
       _setValidation(false);
       return "Name must be less than 30 characters";
     } else {
       if (value.length == 0) {
-        // inputValid = false;
         _setValidation(false);
         return "Name is Required";
       } else if (!regExp.hasMatch(value)) {
-        // inputValid = false;
         _setValidation(false);
         return "Name must be a-z and A-Z";
       }
     }
-    // inputValid = true;
     _setValidation(true);
     return null;
   }
@@ -79,7 +72,6 @@ class RegisterModel extends Model {
         return "Invalid Email";
       } else {
         _setValidation(true);
-
         return null;
       }
     }
@@ -112,13 +104,22 @@ class RegisterModel extends Model {
 
   String validatePassword(String value) {
     _password = value;
-    if (value.length < 8) {
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#%$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length > 30) {
       _setValidation(false);
-      return "Enter a password more than 8 characters";
+      return "Enter password in 30 characters";
     } else {
-      _setValidation(true);
-
-      return null;
+      if (value.length == 0) {
+        _setValidation(false);
+        return "Password is Required";
+      } else if (!regExp.hasMatch(value)) {
+        _setValidation(false);
+        return "Password should contain 1 capital letter, 1 digit and symbol";
+      } else {
+        _setValidation(true);
+        return null;
+      }
     }
   }
 
