@@ -1,6 +1,6 @@
 # new_login
 
-A new Flutter project.
+This is the front end of the Flutter App 
 
 ## Getting Started
 
