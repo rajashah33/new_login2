@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:new_login/ui/shared/app_colors.dart' as prefix0;
-import 'package:new_login/ui/shared/font_styles.dart';
 import 'app_colors.dart';
 
 /// Contains useful functions to reduce boilerplate code

@@ -17,10 +17,11 @@ class RouteGenerator {
           // return MaterialPageRoute(
           //     builder: (context) => FlipPage(isSeller: args));
           return PageTransition(
+              type: PageTransitionType.rightToLeft,
+              // duration: Duration(milliseconds: 500),
               child: FlipPage(
                 isSeller: args,
-              ),
-              type: PageTransitionType.rightToLeft);
+              ));
         }
         return _errorRoute();
         break;
